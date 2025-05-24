@@ -54,12 +54,12 @@ export default function ToolsPage() {
           >
             {category.items.map((tool) => (
               <motion.div key={tool.path} variants={item}>
-                <Link href={tool.path}>
+                <Link href={tool.comingSoon ? "#" : tool.path}>
                   <Card className="p-6 glass glass-hover group space-y-4">
                     <div className="flex items-center justify-between">
                       <tool.icon className="h-8 w-8 text-primary group-hover:text-accent transition-colors" />
-                      {tool.wip && (
-                        <Badge variant="secondary">Work in Progress</Badge>
+                      {tool.comingSoon && (
+                        <Badge variant="secondary">Coming Soon</Badge>
                       )}
                     </div>
                     <div>

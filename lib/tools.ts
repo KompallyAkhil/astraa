@@ -11,6 +11,7 @@ export type Tool = {
   path: string
   icon: LucideIcon
   wip?: boolean
+  comingSoon?: boolean
 }
 
 export const toolCategories: ToolCategory[] = [
@@ -33,7 +34,8 @@ export const toolCategories: ToolCategory[] = [
         name: 'Text Generator',
         description: 'AI-powered text snippet generator',
         path: '/tools/text',
-        icon: Type
+        icon: Type,
+        comingSoon: true
       },
       {
         name: 'Currency Converter',
