@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useDinoGame } from "@/lib/games/dino/useDinoGame"
 import { Gamepad2, Globe } from "lucide-react"
+import { BackButton } from "@/components/back-button"
 
 export default function DinoGame() {
   const [mode, setMode] = useState<'custom' | 'original'>('original')
@@ -14,6 +15,8 @@ export default function DinoGame() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
+      <BackButton />
+      
       <motion.div 
         className="text-center space-y-4"
         initial={{ opacity: 0, y: 20 }}

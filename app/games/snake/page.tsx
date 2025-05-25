@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { useSnakeGame } from "@/lib/games/snake/useSnakeGame"
 import { RefreshCw } from "lucide-react"
+import { BackButton } from "@/components/back-button"
 
 export default function SnakeGame() {
   const { gameState, resetGame, GRID_SIZE } = useSnakeGame()
@@ -12,6 +13,8 @@ export default function SnakeGame() {
 
   return (
     <div className="max-w-2xl mx-auto space-y-8">
+      <BackButton />
+      
       <motion.div 
         className="text-center space-y-4"
         initial={{ opacity: 0, y: 20 }}

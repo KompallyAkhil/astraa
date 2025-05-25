@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { CurrencyConverterClient } from "@/components/currency/currency-converter"
+import { BackButton } from "@/components/back-button"
 
 export const metadata: Metadata = {
   title: "Currency Converter | astraa",
@@ -11,5 +12,10 @@ export const metadata: Metadata = {
 }
 
 export default function CurrencyConverterPage() {
-  return <CurrencyConverterClient />
+  return (
+    <div>
+      <BackButton />
+      <CurrencyConverterClient />
+    </div>
+  )
 }

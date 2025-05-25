@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { UnitConverterClient } from "@/components/units/unit-converter"
+import { BackButton } from "@/components/back-button"
 
 export const metadata: Metadata = {
   title: "Unit Converter | astraa",
@@ -30,5 +31,10 @@ export const metadata: Metadata = {
 }
 
 export default function UnitConverterPage() {
-  return <UnitConverterClient />
+  return (
+    <div>
+      <BackButton />
+      <UnitConverterClient />
+    </div>
+  )
 }

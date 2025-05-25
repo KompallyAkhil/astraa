@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { PasswordGeneratorClient } from "@/components/password/password-generator"
+import { BackButton } from "@/components/back-button"
 
 export const metadata: Metadata = {
   title: "Password Generator | astraa",
@@ -11,5 +12,10 @@ export const metadata: Metadata = {
 }
 
 export default function PasswordGeneratorPage() {
-  return <PasswordGeneratorClient />
+  return (
+    <div>
+      <BackButton />
+      <PasswordGeneratorClient />
+    </div>
+  )
 }
