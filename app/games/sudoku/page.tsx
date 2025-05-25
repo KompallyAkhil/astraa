@@ -1,7 +1,13 @@
 "use client"
 
 import { WorkInProgress } from "@/components/wip"
+import { BackButton } from "@/components/back-button"
 
 export default function SudokuGame() {
-  return <WorkInProgress />
+  return (
+    <div>
+      <BackButton />
+      <WorkInProgress />
+    </div>
+  )
 }
