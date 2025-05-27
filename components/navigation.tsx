@@ -4,6 +4,8 @@ import { CommandMenu } from './command-menu'
 import { Logo } from './logo'
 import { ThemeToggle } from './theme/theme-toggle'
 import Link from 'next/link'
+import { Github } from 'lucide-react'
+import { Button } from './ui/button'
 
 export function Navigation() {
   return (
@@ -12,18 +14,22 @@ export function Navigation() {
         <div className="flex h-16 items-center justify-between">
           <Logo />
 
-          <div className="flex-1 flex justify-center px-4 max-w-2xl mx-auto">
+          <div className="flex-1 hidden md:flex justify-center px-4 max-w-2xl mx-auto">
             <CommandMenu />
           </div>
 
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            <Link 
-              href="/contribute" 
-              className="text-sm font-worksans text-muted-foreground hover:text-foreground transition-colors"
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              asChild 
+              className="hidden md:inline-flex"
             >
-              Contribute
-            </Link>
+              <Link href="/contribute">
+                <Github className="h-5 w-5" />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
