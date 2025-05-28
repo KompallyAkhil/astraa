@@ -1,4 +1,4 @@
-import { Key, Hash, Type, DollarSign, Music, Image as ImageIcon, Ruler, Calculator, Gamepad2, Brain, DivideIcon as LucideIcon } from "lucide-react"
+import { Key, Hash, Type, DollarSign, Music, Image as ImageIcon, Ruler, Calculator, Gamepad2, Brain, Code, FileJson, Database, Terminal, DivideIcon as LucideIcon } from "lucide-react"
 
 export type ToolCategory = {
   name: string
@@ -66,6 +66,36 @@ export const toolCategories: ToolCategory[] = [
         description: 'Stream lofi music with productivity tools',
         path: '/tools/music',
         icon: Music
+      }
+    ]
+  },
+  {
+    name: "Developer Tools",
+    items: [
+      {
+        name: 'Code Formatter',
+        description: 'Format and beautify code snippets',
+        path: '/tools/code-formatter',
+        icon: Code
+      },
+      {
+        name: 'JSON Validator',
+        description: 'Validate and format JSON data',
+        path: '/tools/json',
+        icon: FileJson
+      },
+      {
+        name: 'SQL Formatter',
+        description: 'Format and validate SQL queries',
+        path: '/tools/sql',
+        icon: Database
+      },
+      {
+        name: 'Regex Tester',
+        description: 'Test and validate regular expressions',
+        path: '/tools/regex',
+        icon: Terminal,
+        comingSoon: true
       }
     ]
   }
