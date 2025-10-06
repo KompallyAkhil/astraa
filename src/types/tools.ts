@@ -11,6 +11,10 @@ export interface ToolMetadata {
   version: string;
   author?: string;
   tags: string[];
+  created: Date;
+  modified: Date;
+  featured?: boolean;
+  deprecated?: boolean;
 }
 
 export interface ToolConfig {
@@ -18,6 +22,8 @@ export interface ToolConfig {
   shortcuts: KeyboardShortcut[];
   exportFormats: ExportFormat[];
   importFormats: ImportFormat[];
+  defaultSettings?: Record<string, unknown>;
+  validation?: ValidationSchema;
 }
 
 export interface ToolPlugin {
@@ -29,13 +35,18 @@ export interface ToolPlugin {
   component: React.ComponentType<ToolComponentProps>;
   config: ToolConfig;
   metadata: ToolMetadata;
+  integration?: ToolIntegration;
+  permissions?: ToolPermissions;
 }
 
 export interface ToolComponentProps {
   config: ToolConfig;
   onDataChange: (data: unknown) => void;
   onError: (error: Error) => void;
+  onSave?: (data: unknown) => void;
+  onLoad?: () => unknown;
   initialData?: unknown;
+  readonly?: boolean;
 }
 
 export type ToolCategory = 
@@ -45,13 +56,18 @@ export type ToolCategory =
   | 'utility'
   | 'entertainment'
   | 'finance'
-  | 'security';
+  | 'security'
+  | 'text'
+  | 'image'
+  | 'data';
 
 export interface KeyboardShortcut {
   key: string;
   modifiers: ('ctrl' | 'alt' | 'shift' | 'meta')[];
   action: string;
   description: string;
+  enabled?: boolean;
+  global?: boolean;
 }
 
 export interface ExportFormat {
@@ -59,6 +75,8 @@ export interface ExportFormat {
   name: string;
   extension: string;
   mimeType: string;
+  description?: string;
+  options?: Record<string, unknown>;
 }
 
 export interface ImportFormat {
@@ -66,4 +84,44 @@ export interface ImportFormat {
   name: string;
   extensions: string[];
   mimeTypes: string[];
+  description?: string;
+  validator?: (data: unknown) => boolean;
+}
+
+export interface ToolIntegration {
+  canAccept(data: unknown, fromTool: string): boolean;
+  accept(data: unknown, fromTool: string): void;
+  canProvide(toTool: string): boolean;
+  provide(toTool: string): unknown;
+  supportedTools: string[];
+}
+
+export interface ToolPermissions {
+  clipboard: boolean;
+  fileSystem: boolean;
+  network: boolean;
+  storage: boolean;
+  camera?: boolean;
+  microphone?: boolean;
+}
+
+export interface ValidationSchema {
+  type: 'object' | 'array' | 'string' | 'number' | 'boolean';
+  properties?: Record<string, ValidationSchema>;
+  required?: string[];
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string;
+  minimum?: number;
+  maximum?: number;
+}
+
+export interface ToolSettings {
+  toolId: string;
+  userId?: string;
+  settings: Record<string, unknown>;
+  shortcuts: Record<string, string>;
+  lastUsed: Date;
+  usageCount: number;
+  favorites: boolean;
 }

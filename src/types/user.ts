@@ -7,13 +7,18 @@ export interface UserPreferences {
   privacy: PrivacySettings;
   shortcuts: Record<string, string>;
   toolDefaults: Record<string, unknown>;
+  notifications: NotificationSettings;
+  layout: LayoutSettings;
 }
 
 export interface AccessibilitySettings {
   reducedMotion: boolean;
   highContrast: boolean;
-  fontSize: 'small' | 'medium' | 'large';
+  fontSize: 'small' | 'medium' | 'large' | 'extra-large';
   screenReader: boolean;
+  keyboardNavigation: boolean;
+  focusIndicators: boolean;
+  colorBlindnessSupport: 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia';
 }
 
 export interface PrivacySettings {
@@ -21,6 +26,28 @@ export interface PrivacySettings {
   crashReporting: boolean;
   usageTracking: boolean;
   cloudSync: boolean;
+  dataRetention: number; // days
+  shareUsageData: boolean;
+  personalizedRecommendations: boolean;
+}
+
+export interface NotificationSettings {
+  enabled: boolean;
+  types: {
+    updates: boolean;
+    tips: boolean;
+    errors: boolean;
+    achievements: boolean;
+  };
+  frequency: 'immediate' | 'daily' | 'weekly' | 'never';
+}
+
+export interface LayoutSettings {
+  sidebarCollapsed: boolean;
+  toolbarPosition: 'top' | 'bottom' | 'left' | 'right';
+  gridView: boolean;
+  compactMode: boolean;
+  showDescriptions: boolean;
 }
 
 export interface ToolData {
@@ -28,13 +55,20 @@ export interface ToolData {
   toolId: string;
   name: string;
   data: unknown;
-  metadata: {
-    created: Date;
-    modified: Date;
-    version: string;
-    tags: string[];
-  };
+  metadata: ToolDataMetadata;
   settings: Record<string, unknown>;
+  shared: boolean;
+  shareId?: string;
+}
+
+export interface ToolDataMetadata {
+  created: Date;
+  modified: Date;
+  version: string;
+  tags: string[];
+  size: number;
+  checksum?: string;
+  encrypted: boolean;
 }
 
 export interface ActivityEvent {
@@ -45,6 +79,8 @@ export interface ActivityEvent {
   timestamp: Date;
   metadata: Record<string, unknown>;
   sessionId: string;
+  duration?: number;
+  success: boolean;
 }
 
 export interface UsageAnalytics {
@@ -52,6 +88,8 @@ export interface UsageAnalytics {
   featureUsage: Record<string, number>;
   errorRates: Record<string, number>;
   performanceMetrics: PerformanceMetrics;
+  userJourney: UserJourneyStep[];
+  satisfaction: SatisfactionMetrics;
 }
 
 export interface PerformanceMetrics {
@@ -59,4 +97,60 @@ export interface PerformanceMetrics {
   renderTime: number;
   memoryUsage: number;
   bundleSize: number;
+  cacheHitRate: number;
+  errorRate: number;
+  throughput: number;
+}
+
+export interface UserJourneyStep {
+  step: string;
+  timestamp: Date;
+  toolId?: string;
+  action: string;
+  duration: number;
+  success: boolean;
+}
+
+export interface SatisfactionMetrics {
+  overallRating: number;
+  toolRatings: Record<string, number>;
+  feedbackCount: number;
+  npsScore?: number;
+}
+
+export interface UserProfile {
+  id: string;
+  email?: string;
+  name?: string;
+  avatar?: string;
+  preferences: UserPreferences;
+  subscription: SubscriptionInfo;
+  stats: UserStats;
+  achievements: Achievement[];
+}
+
+export interface SubscriptionInfo {
+  plan: 'free' | 'pro' | 'enterprise';
+  status: 'active' | 'inactive' | 'cancelled' | 'expired';
+  startDate: Date;
+  endDate?: Date;
+  features: string[];
+}
+
+export interface UserStats {
+  toolsUsed: number;
+  totalSessions: number;
+  totalTime: number;
+  dataProcessed: number;
+  joinDate: Date;
+  lastActive: Date;
+}
+
+export interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  unlockedAt: Date;
+  category: 'usage' | 'productivity' | 'exploration' | 'social';
 }
