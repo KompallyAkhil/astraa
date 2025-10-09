@@ -1,3 +1,9 @@
-// Core utilities and types barrel export
-export * from './storage';
-export * from './settings';
+/**
+ * Core utilities and services
+ */
+
+// Export validation utilities
+export * from './validation'
+
+// Re-export types
+export type * from '@/types/core'

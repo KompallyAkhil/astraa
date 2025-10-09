@@ -1,1 +1,6 @@
-// External service integrations barrel export
+/**
+ * Services exports
+ */
+
+export * from './storage'
+export * from './settings'
