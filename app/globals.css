@@ -25,6 +25,7 @@
   --input: 240 5.9% 90%;
   --ring: 142 76% 36%;
   --radius: 0.75rem;
+  --nav-height: 64px;
 }
 
 .dark {
@@ -47,6 +48,7 @@
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
   --ring: 252 100% 69%;
+  --nav-height: 64px;
 }
 
 @layer base {

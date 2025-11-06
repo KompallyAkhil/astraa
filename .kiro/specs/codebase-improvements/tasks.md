@@ -60,7 +60,7 @@
   - Ensure touch-friendly interface elements for mobile devices
   - _Requirements: 6.1, 6.3_
 
-- [x] 6. Landing page improvements and overall UI enhancements
+- [x] 6. `Landing page improvements and overall UI enhancements
 
 
 
@@ -76,7 +76,11 @@
   - Enhance visual design with modern UI patterns and improved spacing
   - _Requirements: 6.1, 6.2_
 
-- [ ] 7. Navbar UI update and navigation improvements
+- [x] 7. Navbar UI update and navigation improvements
+
+
+
+
   - Redesign navigation bar with improved mobile hamburger menu
   - Add smooth transitions and hover effects
   - Implement sticky navigation with scroll-based styling changes
