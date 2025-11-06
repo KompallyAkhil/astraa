@@ -1,6 +1,6 @@
 // Settings management service
-import { UserPreferences, ToolData } from '@/types';
-import { STORAGE_KEYS } from '@/config';
+import { UserPreferences, ToolData } from '@/types/index';
+import { STORAGE_KEYS } from '@/config/index';
 import { StorageService } from './storage';
 
 export interface SettingsManager {
@@ -26,9 +26,9 @@ export class DefaultSettingsManager implements SettingsManager {
       },
       privacy: {
         analytics: false,
-        crashReporting: true,
-        usageTracking: false,
+        errorReporting: true,
         cloudSync: false,
+        dataRetention: 30,
       },
       shortcuts: {},
       toolDefaults: {},
@@ -61,7 +61,7 @@ export class DefaultSettingsManager implements SettingsManager {
     const toolData = await this.storage.load<ToolData[]>(STORAGE_KEYS.TOOL_DATA) || [];
     const toolIndex = toolData.findIndex(t => t.toolId === toolId);
     
-    if (toolIndex >= 0) {
+    if (toolIndex >= 0 && toolData[toolIndex]) {
       toolData[toolIndex].settings = { ...toolData[toolIndex].settings, ...settings };
       toolData[toolIndex].metadata.modified = new Date();
     } else {
@@ -75,8 +75,11 @@ export class DefaultSettingsManager implements SettingsManager {
           modified: new Date(),
           version: '1.0.0',
           tags: [],
+          size: 0,
+          encrypted: false,
         },
         settings,
+        shared: false,
       };
       toolData.push(newToolData);
     }

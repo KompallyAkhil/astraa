@@ -5,7 +5,6 @@
 
 import { storageService, settingsManager } from '@/lib/services'
 import { validateData, userPreferencesSchema, sanitizeUserInput } from '@/lib/core/validation'
-import type { UserPreferences } from '@/types/core'
 
 /**
  * Example: Basic storage operations
@@ -144,13 +143,13 @@ export async function errorHandlingExample() {
     // This will throw a validation error
     validateData(userPreferencesSchema, { theme: 'invalid-theme' })
   } catch (error) {
-    console.log('Caught validation error:', error.message)
+    console.log('Caught validation error:', error instanceof Error ? error.message : String(error))
   }
   
   try {
     // This will throw a sanitization error
     sanitizeUserInput(123 as any) // Invalid input type
   } catch (error) {
-    console.log('Caught sanitization error:', error.message)
+    console.log('Caught sanitization error:', error instanceof Error ? error.message : String(error))
   }
 }

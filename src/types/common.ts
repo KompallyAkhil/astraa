@@ -35,27 +35,6 @@ export interface AsyncState<T = unknown> {
   lastUpdated?: Date;
 }
 
-export interface StorageService {
-  save<T>(key: string, data: T): Promise<void>;
-  load<T>(key: string): Promise<T | null>;
-  delete(key: string): Promise<void>;
-  clear(): Promise<void>;
-  keys(): Promise<string[]>;
-  export(keys: string[]): Promise<Blob>;
-  import(file: File): Promise<Record<string, unknown>>;
-  size(): Promise<number>;
-}
-
-export interface SettingsManager {
-  getUserPreferences(): Promise<UserPreferences>;
-  updatePreferences(updates: Partial<UserPreferences>): Promise<void>;
-  getToolSettings(toolId: string): Promise<ToolSettings>;
-  updateToolSettings(toolId: string, settings: Partial<ToolSettings>): Promise<void>;
-  resetToDefaults(): Promise<void>;
-  exportSettings(): Promise<Blob>;
-  importSettings(file: File): Promise<void>;
-}
-
 export interface ErrorContext {
   component?: string;
   action?: string;
@@ -110,5 +89,4 @@ export interface CacheManager {
 }
 
 // Re-export types from other modules for convenience
-export type { UserPreferences, ToolSettings } from './user';
 export type { ToolPlugin, ToolConfig, ToolMetadata } from './tools';

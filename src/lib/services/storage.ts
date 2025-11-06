@@ -85,16 +85,19 @@ class IndexedDBStorage implements StorageService {
 
   private createStorageItem<T>(data: T, options: StorageOptions = {}): StorageItem<T> {
     const now = new Date()
+    const metadata: StorageItem<T>['metadata'] = {
+      created: now,
+      modified: now,
+      version: '1.0.0',
+      encrypted: options.encrypt || false,
+      compressed: options.compress || false,
+    }
+    if (options.ttl !== undefined) {
+      metadata.ttl = options.ttl
+    }
     return {
       data,
-      metadata: {
-        created: now,
-        modified: now,
-        version: '1.0.0',
-        encrypted: options.encrypt || false,
-        compressed: options.compress || false,
-        ttl: options.ttl,
-      },
+      metadata,
     }
   }
 
@@ -136,7 +139,7 @@ class IndexedDBStorage implements StorageService {
   }
 
   async save<T>(key: StorageKey, data: T, options: StorageOptions = {}): Promise<void> {
-    const validOptions = validateData(storageOptionsSchema, options)
+    const validOptions = validateData(storageOptionsSchema, options) as StorageOptions
     await this.initDB()
 
     if (!this.db) throw new Error('Database not initialized')

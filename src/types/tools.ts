@@ -116,7 +116,7 @@ export interface ValidationSchema {
   maximum?: number;
 }
 
-export interface ToolSettings {
+export interface ToolUserSettings {
   toolId: string;
   userId?: string;
   settings: Record<string, unknown>;

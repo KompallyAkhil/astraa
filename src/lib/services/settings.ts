@@ -66,10 +66,13 @@ class SettingsManagerImpl implements SettingsManager {
       
       if (stored) {
         // Validate and merge with defaults to handle schema changes
-        const validated = validateData(userPreferencesSchema, {
+        const merged = {
           ...DEFAULT_USER_PREFERENCES,
           ...stored,
-        })
+          accessibility: { ...DEFAULT_USER_PREFERENCES.accessibility, ...stored.accessibility },
+          privacy: { ...DEFAULT_USER_PREFERENCES.privacy, ...stored.privacy },
+        }
+        const validated = validateData(userPreferencesSchema, merged) as UserPreferences
         this.userPreferencesCache = validated
         return validated
       }
@@ -108,7 +111,7 @@ class SettingsManagerImpl implements SettingsManager {
     }
 
     // Validate the updated preferences
-    const validated = validateData(userPreferencesSchema, updated)
+    const validated = validateData(userPreferencesSchema, updated) as UserPreferences
 
     // Save to storage
     await storageService.save(USER_PREFERENCES_KEY, validated)
@@ -137,7 +140,7 @@ class SettingsManagerImpl implements SettingsManager {
           ...createDefaultToolSettings(toolId),
           ...stored,
           id: toolId, // Ensure ID matches
-        })
+        }) as ToolSettings
         
         this.toolSettingsCache.set(toolId, validated)
         return validated
@@ -173,7 +176,7 @@ class SettingsManagerImpl implements SettingsManager {
     }
 
     // Validate the updated settings
-    const validated = validateData(toolSettingsSchema, updated)
+    const validated = validateData(toolSettingsSchema, updated) as ToolSettings
 
     // Save to storage
     const key = `${TOOL_SETTINGS_PREFIX}${toolId}`

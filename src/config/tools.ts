@@ -1,5 +1,5 @@
 // Tool configuration and registry
-import { ToolCategory, ToolMetadata } from '@/types';
+import { ToolCategory } from '@/types/index';
 
 export const TOOL_CATEGORIES: Record<ToolCategory, { name: string; description: string }> = {
   developer: {
@@ -29,6 +29,18 @@ export const TOOL_CATEGORIES: Record<ToolCategory, { name: string; description: 
   security: {
     name: 'Security',
     description: 'Security and privacy tools',
+  },
+  text: {
+    name: 'Text Tools',
+    description: 'Text processing and manipulation tools',
+  },
+  image: {
+    name: 'Image Tools',
+    description: 'Image processing and editing tools',
+  },
+  data: {
+    name: 'Data Tools',
+    description: 'Data processing and analysis tools',
   },
 } as const;
 

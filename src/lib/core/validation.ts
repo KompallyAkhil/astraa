@@ -162,14 +162,4 @@ export function validateFileUpload(
   }
 }
 
-// Export schemas for external use
-export {
-  userPreferencesSchema,
-  toolSettingsSchema,
-  accessibilitySettingsSchema,
-  privacySettingsSchema,
-  storageOptionsSchema,
-  fileValidationSchema,
-  imageFileSchema,
-  textFileSchema,
-}
+// Schemas are already exported above
