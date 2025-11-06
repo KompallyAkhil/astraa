@@ -1,28 +1,71 @@
 "use client"
 
+import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
 import { useTools } from "@/lib/tools-context"
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-}
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
-}
+import { SearchFilter } from "@/components/search-filter"
+import { ContentGrid } from "@/components/content-grid"
+import type { ContentItem } from "@/components/content-grid"
 
 export default function ToolsPage() {
   const { categories } = useTools()
+  const [searchQuery, setSearchQuery] = useState("")
+  const [filterValue, setFilterValue] = useState("all")
+
+  // Create filter options from categories
+  const filterOptions = useMemo(() => {
+    const options = [{ value: "all", label: "All Categories" }]
+    categories.forEach(category => {
+      options.push({ value: category.name.toLowerCase(), label: category.name })
+    })
+    options.push({ value: "available", label: "Available Only" })
+    options.push({ value: "coming-soon", label: "Coming Soon" })
+    return options
+  }, [categories])
+
+  // Convert tools to ContentItem format with category info
+  const toolItems: ContentItem[] = useMemo(() => {
+    const items: ContentItem[] = []
+    categories.forEach(category => {
+      category.items.forEach(tool => {
+        items.push({
+          ...tool,
+          category: category.name.toLowerCase()
+        })
+      })
+    })
+    return items
+  }, [categories])
+
+  // Filter tools based on search and category
+  const filteredTools = useMemo(() => {
+    let filtered = toolItems
+
+    // Apply category filter
+    if (filterValue !== "all") {
+      if (filterValue === "available") {
+        filtered = filtered.filter(tool => !tool.comingSoon && !tool.wip)
+      } else if (filterValue === "coming-soon") {
+        filtered = filtered.filter(tool => tool.comingSoon)
+      } else {
+        filtered = filtered.filter(tool => tool.category === filterValue)
+      }
+    }
+
+    // Apply search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(tool =>
+        tool.name.toLowerCase().includes(query) ||
+        tool.description.toLowerCase().includes(query)
+      )
+    }
+
+    return filtered
+  }, [toolItems, searchQuery, filterValue])
+
+  const totalTools = toolItems.length
+  const availableTools = toolItems.filter(t => !t.comingSoon && !t.wip).length
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 sm:space-y-12">
@@ -36,45 +79,61 @@ export default function ToolsPage() {
         <p className="text-muted-foreground max-w-2xl mx-auto text-fluid-base">
           Discover our collection of powerful tools designed to enhance your workflow
         </p>
+        <div className="flex justify-center gap-4 text-sm text-muted-foreground">
+          <span>{totalTools} Total Tools</span>
+          <span>•</span>
+          <span>{availableTools} Available</span>
+        </div>
       </motion.div>
 
-      {categories.map((category, categoryIndex) => (
-        <motion.div
-          key={category.name}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: categoryIndex * 0.2 }}
-          className="space-y-4 sm:space-y-6"
-        >
-          <h2 className="text-fluid-2xl font-semibold px-4">{category.name}</h2>
+      {/* Search and Filter */}
+      <SearchFilter
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        filterValue={filterValue}
+        onFilterChange={setFilterValue}
+        filterOptions={filterOptions}
+        filterLabel="Category"
+        placeholder="Search tools..."
+      />
 
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-4"
-          >
-            {category.items.map((tool) => (
-              <motion.div key={tool.path} variants={item}>
-                <Link href={tool.comingSoon ? "#" : tool.path}>
-                  <Card className="p-5 sm:p-6 glass glass-hover group space-y-3 sm:space-y-4 h-full min-h-touch">
-                    <div className="flex items-center justify-between">
-                      <tool.icon className="h-7 w-7 sm:h-8 sm:w-8 text-primary group-hover:text-accent transition-colors" />
-                      {tool.comingSoon && (
-                        <Badge variant="secondary" className="text-xs">Coming Soon</Badge>
-                      )}
-                    </div>
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-semibold mb-2">{tool.name}</h3>
-                      <p className="text-muted-foreground text-sm sm:text-base">{tool.description}</p>
-                    </div>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-      ))}
+      {/* Show unified results when searching or filtering */}
+      {(searchQuery || filterValue !== "all") && (
+        <div className="space-y-4 sm:space-y-6">
+          <div className="px-4">
+            <p className="text-muted-foreground text-sm">
+              Found {filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'}
+            </p>
+          </div>
+          <ContentGrid 
+            items={filteredTools}
+            emptyMessage="No tools match your search. Try different keywords or filters."
+          />
+        </div>
+      )}
+
+      {/* Show categorized tools when not searching */}
+      {!searchQuery && filterValue === "all" && (
+        <>
+          {categories.map((category, categoryIndex) => (
+            <motion.div
+              key={category.name}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: categoryIndex * 0.1 }}
+              className="space-y-4 sm:space-y-6"
+            >
+              <div className="flex items-center gap-2 px-4">
+                <h2 className="text-fluid-2xl font-semibold">{category.name}</h2>
+                <span className="text-muted-foreground text-sm">({category.items.length})</span>
+              </div>
+              <ContentGrid 
+                items={category.items.map(tool => ({ ...tool, category: category.name.toLowerCase() }))}
+              />
+            </motion.div>
+          ))}
+        </>
+      )}
     </div>
   )
 }

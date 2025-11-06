@@ -1,30 +1,62 @@
 "use client"
 
+import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
 import { Gamepad2, Wrench } from "lucide-react"
 import { useTools } from "@/lib/tools-context"
 import { games } from "@/lib/games"
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-}
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
-}
+import { SearchFilter } from "@/components/search-filter"
+import { ContentGrid } from "@/components/content-grid"
+import type { ContentItem } from "@/components/content-grid"
 
 export default function ExplorePage() {
-  const { categories } = useTools()
+  const { tools } = useTools()
+  const [searchQuery, setSearchQuery] = useState("")
+  const [filterValue, setFilterValue] = useState("all")
+
+  // Combine tools and games into a single searchable list
+  const allContent = useMemo(() => {
+    const toolItems: ContentItem[] = tools.map(tool => ({
+      ...tool,
+      category: "tool"
+    }))
+    const gameItems: ContentItem[] = games.map(game => ({
+      ...game,
+      category: "game"
+    }))
+    return [...toolItems, ...gameItems]
+  }, [tools])
+
+  // Filter content based on search and filter
+  const filteredContent = useMemo(() => {
+    let filtered = allContent
+
+    // Apply category filter
+    if (filterValue !== "all") {
+      filtered = filtered.filter(item => item.category === filterValue)
+    }
+
+    // Apply search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(item =>
+        item.name.toLowerCase().includes(query) ||
+        item.description.toLowerCase().includes(query)
+      )
+    }
+
+    return filtered
+  }, [allContent, searchQuery, filterValue])
+
+  // Separate filtered content by type
+  const filteredTools = filteredContent.filter(item => item.category === "tool")
+  const filteredGames = filteredContent.filter(item => item.category === "game")
+
+  const filterOptions = [
+    { value: "all", label: "All" },
+    { value: "tool", label: "Tools" },
+    { value: "game", label: "Games" }
+  ]
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 sm:space-y-12">
@@ -40,81 +72,64 @@ export default function ExplorePage() {
         </p>
       </motion.div>
 
-      {/* Tools Section */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="space-y-4 sm:space-y-6"
-      >
-        <div className="flex items-center gap-2 px-4">
-          <Wrench className="h-5 w-5 sm:h-6 sm:w-6" />
-          <h2 className="text-fluid-2xl font-semibold">Tools</h2>
-        </div>
-        
-        <motion.div 
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-4"
-        >
-          {categories[0]?.items.map((tool) => (
-            <motion.div key={tool.path} variants={item}>
-              <Link href={tool.path}>
-                <Card className="p-5 sm:p-6 glass glass-hover group space-y-3 sm:space-y-4 h-full min-h-touch">
-                  <div className="flex items-center justify-between">
-                    <tool.icon className="h-7 w-7 sm:h-8 sm:w-8 text-primary group-hover:text-accent transition-colors" />
-                    {tool.wip && (
-                      <Badge variant="secondary" className="text-xs">Work in Progress</Badge>
-                    )}
-                  </div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-semibold mb-2">{tool.name}</h3>
-                    <p className="text-muted-foreground text-sm sm:text-base">{tool.description}</p>
-                  </div>
-                </Card>
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.div>
+      {/* Search and Filter */}
+      <SearchFilter
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        filterValue={filterValue}
+        onFilterChange={setFilterValue}
+        filterOptions={filterOptions}
+        filterLabel="Category"
+        placeholder="Search tools and games..."
+      />
 
-      {/* Games Section */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="space-y-4 sm:space-y-6"
-      >
-        <div className="flex items-center gap-2 px-4">
-          <Gamepad2 className="h-5 w-5 sm:h-6 sm:w-6" />
-          <h2 className="text-fluid-2xl font-semibold">Games</h2>
+      {/* Show all content when searching or filtering */}
+      {(searchQuery || filterValue !== "all") && (
+        <div className="space-y-4 sm:space-y-6">
+          <div className="px-4">
+            <p className="text-muted-foreground text-sm">
+              Found {filteredContent.length} {filteredContent.length === 1 ? 'item' : 'items'}
+            </p>
+          </div>
+          <ContentGrid 
+            items={filteredContent}
+            emptyMessage="No items match your search. Try different keywords or filters."
+          />
         </div>
-        
-        <motion.div 
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-4"
-        >
-          {games.map((game) => (
-            <motion.div key={game.path} variants={item}>
-              <Link href={game.path}>
-                <Card className="p-5 sm:p-6 glass glass-hover group space-y-3 sm:space-y-4 h-full min-h-touch">
-                  <div className="flex items-center justify-between">
-                    <game.icon className="h-7 w-7 sm:h-8 sm:w-8 text-primary group-hover:text-accent transition-colors" />
-                    {game.comingSoon && (
-                      <Badge variant="secondary" className="text-xs">Coming Soon</Badge>
-                    )}
-                  </div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-semibold mb-2">{game.name}</h3>
-                    <p className="text-muted-foreground text-sm sm:text-base">{game.description}</p>
-                  </div>
-                </Card>
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.div>
+      )}
+
+      {/* Show categorized content when not searching */}
+      {!searchQuery && filterValue === "all" && (
+        <>
+          {/* Tools Section */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="space-y-4 sm:space-y-6"
+          >
+            <div className="flex items-center gap-2 px-4">
+              <Wrench className="h-5 w-5 sm:h-6 sm:w-6" />
+              <h2 className="text-fluid-2xl font-semibold">Tools</h2>
+              <span className="text-muted-foreground text-sm">({tools.length})</span>
+            </div>
+            <ContentGrid items={filteredTools} />
+          </motion.div>
+
+          {/* Games Section */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="space-y-4 sm:space-y-6"
+          >
+            <div className="flex items-center gap-2 px-4">
+              <Gamepad2 className="h-5 w-5 sm:h-6 sm:w-6" />
+              <h2 className="text-fluid-2xl font-semibold">Games</h2>
+              <span className="text-muted-foreground text-sm">({games.length})</span>
+            </div>
+            <ContentGrid items={filteredGames} />
+          </motion.div>
+        </>
+      )}
     </div>
   )
 }
