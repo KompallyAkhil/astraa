@@ -32,11 +32,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@/components/*": ["./src/components/*"],
-      "@/lib/*": ["./src/lib/*"],
+      "@/components/*": ["./components/*", "./src/components/*"],
+      "@/lib/*": ["./lib/*", "./src/lib/*"],
       "@/types/*": ["./src/types/*"],
       "@/config/*": ["./src/config/*"],
-      "@/hooks/*": ["./src/hooks/*"],
+      "@/hooks/*": ["./hooks/*", "./src/hooks/*"],
       "@/app/*": ["./app/*"]
     }
   },

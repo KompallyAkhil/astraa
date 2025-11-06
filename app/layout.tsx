@@ -25,7 +25,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+      </head>
       <body className={workSans.className} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
@@ -37,8 +39,10 @@ export default function RootLayout({
             <ActivityProvider>
               <div className="min-h-screen flex flex-col">
                 <Navigation />
-                <main className="container mx-auto px-4 py-8 animate-in flex-1">
-                  {children}
+                <main className="flex-1 w-full">
+                  <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 animate-in">
+                    {children}
+                  </div>
                 </main>
                 <Footer />
               </div>

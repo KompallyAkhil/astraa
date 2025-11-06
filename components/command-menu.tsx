@@ -12,7 +12,7 @@ import {
   CommandList,
 } from "@/components/ui/command"
 import { Search } from "lucide-react"
-import { tools, toolCategories } from "@/lib/tools"
+import { toolCategories } from "@/lib/tools"
 import { games } from "@/lib/games"
 import { Badge } from "@/components/ui/badge"
 import { DialogContent, DialogTitle } from "@/components/ui/dialog"

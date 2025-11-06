@@ -25,35 +25,35 @@ const features = [
 
 export default function ContributePage() {
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8">
       <motion.div 
-        className="text-center space-y-4"
+        className="text-center space-y-3 sm:space-y-4 px-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-4xl font-bold">Contribute to astraa</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-fluid-4xl font-bold">Contribute to astraa</h1>
+        <p className="text-muted-foreground text-fluid-base">
           Help us make astraa better for everyone
         </p>
       </motion.div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-3 px-4">
         {features.map((feature) => (
-          <Card key={feature.title} className="p-6 glass glass-hover">
-            <feature.icon className="h-8 w-8 text-primary mb-4" />
-            <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-            <p className="text-muted-foreground">{feature.description}</p>
+          <Card key={feature.title} className="p-5 sm:p-6 glass glass-hover h-full">
+            <feature.icon className="h-7 w-7 sm:h-8 sm:w-8 text-primary mb-3 sm:mb-4" />
+            <h3 className="text-lg sm:text-xl font-semibold mb-2">{feature.title}</h3>
+            <p className="text-muted-foreground text-sm sm:text-base">{feature.description}</p>
           </Card>
         ))}
       </div>
 
-      <Card className="p-8 text-center">
-        <h2 className="text-2xl font-bold mb-4">Ready to Contribute?</h2>
-        <p className="text-muted-foreground mb-6">
+      <Card className="p-6 sm:p-8 text-center mx-4">
+        <h2 className="text-fluid-2xl font-bold mb-3 sm:mb-4">Ready to Contribute?</h2>
+        <p className="text-muted-foreground mb-5 sm:mb-6 text-fluid-base">
           Check out our GitHub repository to get started. Every contribution counts!
         </p>
-        <Button asChild>
+        <Button asChild className="min-h-touch">
           <a 
             href="https://github.com" 
             target="_blank" 
