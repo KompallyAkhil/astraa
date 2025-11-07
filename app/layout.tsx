@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { ToolsProvider } from '@/lib/tools-context';
 import { ActivityProvider } from '@/lib/activity-tracker';
+import { PageTransition } from '@/components/ui/page-transition';
 
 const workSans = Work_Sans({
   subsets: ['latin'],
@@ -40,9 +41,11 @@ export default function RootLayout({
               <div className="min-h-screen flex flex-col">
                 <Navigation />
                 <main className="flex-1 w-full">
-                  <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 animate-in">
-                    {children}
-                  </div>
+                  <PageTransition type="fade">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
+                      {children}
+                    </div>
+                  </PageTransition>
                 </main>
                 <Footer />
               </div>
