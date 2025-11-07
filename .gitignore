@@ -36,3 +36,9 @@ next-env.d.ts
 
 # docs
 /docs
+
+
+#shit files
+.kiro/
+.vscode/
+.bolt/
