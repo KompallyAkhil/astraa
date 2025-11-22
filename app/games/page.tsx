@@ -12,11 +12,11 @@ export default function GamesPage() {
   const [filterValue, setFilterValue] = useState("all")
 
   // Convert games to ContentItem format
-  const gameItems: ContentItem[] = useMemo(() => 
+  const gameItems: ContentItem[] = useMemo(() =>
     games.map(game => ({
       ...game,
       category: "game"
-    })), 
+    })),
     []
   )
 
@@ -27,8 +27,6 @@ export default function GamesPage() {
     // Apply availability filter
     if (filterValue === "available") {
       filtered = filtered.filter(game => !game.comingSoon)
-    } else if (filterValue === "coming-soon") {
-      filtered = filtered.filter(game => game.comingSoon)
     }
 
     // Apply search query
@@ -45,16 +43,14 @@ export default function GamesPage() {
 
   const filterOptions = [
     { value: "all", label: "All Games" },
-    { value: "available", label: "Available" },
-    { value: "coming-soon", label: "Coming Soon" }
+    { value: "available", label: "Available" }
   ]
 
   const availableCount = gameItems.filter(g => !g.comingSoon).length
-  const comingSoonCount = gameItems.filter(g => g.comingSoon).length
 
   return (
     <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
-      <motion.div 
+      <motion.div
         className="text-center space-y-3 sm:space-y-4 px-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -66,8 +62,6 @@ export default function GamesPage() {
         </p>
         <div className="flex justify-center gap-4 text-sm text-muted-foreground">
           <span>{availableCount} Available</span>
-          <span>•</span>
-          <span>{comingSoonCount} Coming Soon</span>
         </div>
       </motion.div>
 
@@ -92,7 +86,7 @@ export default function GamesPage() {
       )}
 
       {/* Games Grid */}
-      <ContentGrid 
+      <ContentGrid
         items={filteredGames}
         emptyMessage="No games match your search. Try different keywords or filters."
       />
