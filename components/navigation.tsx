@@ -2,8 +2,7 @@
 
 import { CommandMenu } from './command-menu'
 import { Logo } from './logo'
-import { EnhancedThemeToggle } from './theme/enhanced-theme-toggle'
-import { AccessibilityPanel } from './accessibility/accessibility-panel'
+import { ThemeToggle } from './theme-toggle'
 import Link from 'next/link'
 import { Github, Menu, X, Home, Compass, Gamepad2, Wrench, Heart } from 'lucide-react'
 import { Button } from './ui/button'
@@ -52,58 +51,39 @@ export function Navigation() {
   }, [isMenuOpen])
 
   return (
-    <nav 
+    <nav
       className={cn(
-        "border-b backdrop-blur-md sticky top-0 z-50 transition-all duration-300",
-        isScrolled 
-          ? "bg-background/95 border-border shadow-md" 
-          : "bg-background/80 border-border/50"
+        "sticky top-0 z-50 transition-all duration-300",
+        isScrolled
+          ? "bg-background/90 backdrop-blur-md border-b border-border shadow-sm"
+          : "bg-transparent border-b border-transparent"
       )}
       role="navigation"
       aria-label="Main navigation"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-14 sm:h-16 items-center justify-between gap-2 sm:gap-4">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Logo />
+        <div className="flex h-14 sm:h-16 items-center justify-between gap-2 sm:gap-4 lg:grid lg:grid-cols-3">
+          {/* Left Section: Logo */}
+          <div className="flex items-center justify-start gap-4">
+            <div className="flex-shrink-0">
+              <Logo />
+            </div>
           </div>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navigationLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "px-3 py-2 rounded-md text-sm font-medium transition-all duration-200",
-                  "hover:bg-primary/10 hover:text-primary",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                  "min-h-touch flex items-center gap-2"
-                )}
-                aria-label={link.label}
-              >
-                <link.icon className="h-4 w-4" aria-hidden="true" />
-                <span>{link.label}</span>
-              </Link>
-            ))}
-          </div>
-
-          {/* Command Menu - Desktop */}
-          <div className="flex-1 hidden md:flex justify-center px-4 max-w-2xl mx-auto lg:max-w-md">
+          {/* Center Section: Command Menu (Search) */}
+          <div className="hidden md:flex justify-center">
             <CommandMenu />
           </div>
 
-          {/* Right Side Actions */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <AccessibilityPanel />
-            <EnhancedThemeToggle />
-            
+          {/* Right Section: Actions */}
+          <div className="flex items-center justify-end gap-2 sm:gap-3">
+            <ThemeToggle />
+
             {/* GitHub Link - Desktop */}
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              asChild 
+            <Button
+              variant="ghost"
+              size="icon"
+              asChild
               className="hidden sm:inline-flex min-h-touch min-w-touch hover:bg-primary/10 hover:text-primary transition-colors duration-200"
             >
               <Link href="/contribute" aria-label="Contribute on GitHub">
@@ -203,9 +183,9 @@ export function Navigation() {
                         onClick={() => setIsMenuOpen(false)}
                         role="menuitem"
                       >
-                        <link.icon 
-                          className="h-5 w-5 transition-transform duration-200 group-hover:scale-110" 
-                          aria-hidden="true" 
+                        <link.icon
+                          className="h-5 w-5 transition-transform duration-200 group-hover:scale-110"
+                          aria-hidden="true"
                         />
                         <span>{link.label}</span>
                       </Link>
@@ -231,9 +211,9 @@ export function Navigation() {
                     onClick={() => setIsMenuOpen(false)}
                     role="menuitem"
                   >
-                    <Github 
-                      className="h-5 w-5 transition-transform duration-200 group-hover:scale-110" 
-                      aria-hidden="true" 
+                    <Github
+                      className="h-5 w-5 transition-transform duration-200 group-hover:scale-110"
+                      aria-hidden="true"
                     />
                     <span>GitHub</span>
                   </Link>

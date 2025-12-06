@@ -19,7 +19,6 @@ export default function ToolsPage() {
       options.push({ value: category.name.toLowerCase(), label: category.name })
     })
     options.push({ value: "available", label: "Available Only" })
-    options.push({ value: "coming-soon", label: "Coming Soon" })
     return options
   }, [categories])
 
@@ -45,8 +44,6 @@ export default function ToolsPage() {
     if (filterValue !== "all") {
       if (filterValue === "available") {
         filtered = filtered.filter(tool => !tool.comingSoon && !tool.wip)
-      } else if (filterValue === "coming-soon") {
-        filtered = filtered.filter(tool => tool.comingSoon)
       } else {
         filtered = filtered.filter(tool => tool.category === filterValue)
       }
@@ -105,7 +102,7 @@ export default function ToolsPage() {
               Found {filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'}
             </p>
           </div>
-          <ContentGrid 
+          <ContentGrid
             items={filteredTools}
             emptyMessage="No tools match your search. Try different keywords or filters."
           />
@@ -127,7 +124,7 @@ export default function ToolsPage() {
                 <h2 className="text-fluid-2xl font-semibold">{category.name}</h2>
                 <span className="text-muted-foreground text-sm">({category.items.length})</span>
               </div>
-              <ContentGrid 
+              <ContentGrid
                 items={category.items.map(tool => ({ ...tool, category: category.name.toLowerCase() }))}
               />
             </motion.div>

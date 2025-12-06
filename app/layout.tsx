@@ -1,23 +1,17 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Work_Sans } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 import { Toaster } from "@/components/ui/toaster";
-import { EnhancedThemeProvider } from "@/components/theme/enhanced-theme-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 import { ToolsProvider } from '@/lib/tools-context';
 import { ActivityProvider } from '@/lib/activity-tracker';
 import { PageTransition } from '@/components/ui/page-transition';
-import { KeyboardNavDetector } from '@/components/accessibility/keyboard-nav-detector';
-import { SkipToMain } from '@/components/accessibility/skip-to-main';
-
-const workSans = Work_Sans({
-  subsets: ['latin'],
-  variable: '--font-work-sans',
-});
 
 export const metadata: Metadata = {
-  title: 'astrah - Utility Tools Suite',
+  title: 'astraa - Utility Tools Suite',
   description: 'A collection of helpful utility tools for developers and creators',
 };
 
@@ -31,8 +25,8 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
       </head>
-      <body className={workSans.className} suppressHydrationWarning>
-        <EnhancedThemeProvider
+      <body className={`${GeistSans.variable} ${GeistMono.variable} font-sans`} suppressHydrationWarning>
+        <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
@@ -40,8 +34,6 @@ export default function RootLayout({
         >
           <ToolsProvider>
             <ActivityProvider>
-              <KeyboardNavDetector />
-              <SkipToMain />
               <div className="min-h-screen flex flex-col">
                 <Navigation />
                 <main id="main-content" className="flex-1 w-full" tabIndex={-1}>
@@ -56,7 +48,7 @@ export default function RootLayout({
               <Toaster />
             </ActivityProvider>
           </ToolsProvider>
-        </EnhancedThemeProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
