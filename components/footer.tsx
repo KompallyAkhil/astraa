@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Github, Twitter } from "lucide-react"
+import { HiHeart } from "react-icons/hi2"
 import { motion } from "framer-motion"
 import { useReducedMotion } from "@/lib/animations/hooks"
 
@@ -49,7 +50,7 @@ export function Footer() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            Built with ❤️ by the community
+            Built with <HiHeart className="inline h-4 w-4 text-red-500 mx-1" /> by the community
           </motion.p>
           
           <div className="flex items-center gap-4 sm:gap-6 text-sm sm:text-base text-muted-foreground">
