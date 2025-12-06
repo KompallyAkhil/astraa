@@ -18,12 +18,10 @@ const fadeInUp = {
 }
 
 export function HeroSection() {
-  
   return (
     <section className="relative flex-1 flex items-center justify-center -my-6 sm:-my-8 lg:-my-12">
-
       <motion.div
-        className="text-center max-w-3xl mx-auto px-4"
+        className="text-center max-w-3xl mx-auto px-4 relative z-10"
         initial="hidden"
         animate="show"
         variants={{
