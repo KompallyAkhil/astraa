@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ToolsProvider } from '@/lib/tools-context';
 import { ActivityProvider } from '@/lib/activity-tracker';
 import { PageTransition } from '@/components/ui/page-transition';
+import { LandingBackground } from '@/components/landing-background';
 
 export const metadata: Metadata = {
   title: 'astraa - Utility Tools Suite',
@@ -34,6 +35,7 @@ export default function RootLayout({
         >
           <ToolsProvider>
             <ActivityProvider>
+              <LandingBackground />
               <div className="min-h-screen flex flex-col">
                 <Navigation />
                 <main id="main-content" className="flex-1 w-full" tabIndex={-1}>
