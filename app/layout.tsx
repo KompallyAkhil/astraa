@@ -11,6 +11,9 @@ import { ActivityProvider } from '@/lib/activity-tracker';
 import { PageTransition } from '@/components/ui/page-transition';
 import { LandingBackground } from '@/components/landing-background';
 
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 export const metadata: Metadata = {
   title: 'astraa - Utility Tools Suite',
   description: 'A collection of helpful utility tools for developers and creators',
@@ -48,6 +51,8 @@ export default function RootLayout({
                 <Footer />
               </div>
               <Toaster />
+              <Analytics />
+              <SpeedInsights />
             </ActivityProvider>
           </ToolsProvider>
         </ThemeProvider>
