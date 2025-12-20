@@ -3,13 +3,15 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 
-export function Logo() {
+import { cn } from "@/lib/utils"
+
+export function Logo({ className }: { className?: string }) {
   return (
     <Link href="/" className="flex items-center gap-1">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-2xl font-semibold"
+        className={cn("text-2xl font-semibold", className)}
       >
         <span className="font-logo text-white">astraa</span>
         <span className="font-mono text-sm text-muted-foreground ml-1">अस्त्र</span>
