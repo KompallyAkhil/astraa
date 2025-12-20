@@ -71,7 +71,7 @@ export function CommandMenu() {
       >
         <Search className="mr-2 h-3.5 w-3.5 shrink-0" />
         <span className="text-xs">Search...</span>
-        <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded border bg-muted/50 px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+        <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded border bg-muted/50 px-1.5 font-mono text-[10px] opacity-100 sm:flex">
           <span>⌘</span><span>K</span>
         </kbd>
       </Button>
@@ -88,8 +88,8 @@ export function CommandMenu() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
               >
-                <CommandInput 
-                  placeholder="Type to search tools and games..." 
+                <CommandInput
+                  placeholder="Type to search tools and games..."
                   value={search}
                   onValueChange={setSearch}
                   aria-label="Search input"
@@ -104,7 +104,7 @@ export function CommandMenu() {
                       No results found for "{search}"
                     </motion.div>
                   </CommandEmpty>
-                  
+
                   {/* Synchronized with explore page - Tools categories */}
                   {categories.map((category) => (
                     <CommandGroup key={category.name} heading={category.name}>
@@ -140,7 +140,7 @@ export function CommandMenu() {
                       ))}
                     </CommandGroup>
                   ))}
-                  
+
                   {/* Synchronized with explore page - Games section */}
                   <CommandGroup heading="Games">
                     {games.map((game) => (
@@ -170,9 +170,9 @@ export function CommandMenu() {
                     ))}
                   </CommandGroup>
                 </CommandList>
-                
+
                 {/* Keyboard shortcuts hint */}
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.1 }}

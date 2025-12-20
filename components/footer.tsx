@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function Footer() {
   return (
-    <footer className="relative z-10 bg-gradient-to-b from-transparent via-background/80 to-background">
+    <footer className="relative z-10 bg-gradient-to-b from-transparent via-background/40 to-background">
       <div className="container px-4 md:px-6 py-6 md:py-8 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-12">
 

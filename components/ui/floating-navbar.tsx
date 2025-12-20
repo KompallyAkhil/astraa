@@ -37,7 +37,7 @@ export function FloatingNav({ className }: { className?: string }) {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
-      
+
       if (currentScrollY < 50) {
         // Always show at top of page
         setVisible(true)
@@ -48,7 +48,7 @@ export function FloatingNav({ className }: { className?: string }) {
         // Scrolling up - show
         setVisible(true)
       }
-      
+
       lastScrollY.current = currentScrollY
     }
 
@@ -85,8 +85,8 @@ export function FloatingNav({ className }: { className?: string }) {
             transition={{ duration: 0.2 }}
             className={cn(
               "flex fixed top-6 inset-x-0 mx-4 sm:mx-auto max-w-2xl",
-              "border-2 border-neutral-400/50 dark:border-neutral-600/50 rounded-full",
-              "bg-transparent backdrop-blur-sm",
+              "border border-neutral-200/20 dark:border-neutral-800/20 rounded-full",
+              "bg-background/50 backdrop-blur-md shadow-sm",
               "z-[5000] px-6 py-2 items-center justify-between gap-4",
               className
             )}
@@ -101,7 +101,7 @@ export function FloatingNav({ className }: { className?: string }) {
             <Button
               variant="ghost"
               size="sm"
-              className="flex-1 max-w-xs justify-start text-muted-foreground hover:text-foreground hover:bg-transparent border-2 border-neutral-400/50 dark:border-neutral-600/50 rounded-full px-4"
+              className="flex-1 max-w-xs justify-start text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-neutral-200/20 dark:border-neutral-800/20 rounded-full px-4"
               onClick={() => setSearchOpen(true)}
             >
               <Search className="h-4 w-4 mr-2" />
@@ -115,7 +115,7 @@ export function FloatingNav({ className }: { className?: string }) {
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="group shrink-0 h-8 w-8 flex items-center justify-center rounded-full border-2 border-neutral-400/50 dark:border-neutral-600/50"
+              className="group shrink-0 h-8 w-8 flex items-center justify-center rounded-full border border-neutral-200/20 dark:border-neutral-800/20 hover:bg-muted/50"
               onClick={() => router.back()}
               aria-label="Go back"
             >
@@ -140,7 +140,7 @@ export function FloatingNav({ className }: { className?: string }) {
           <CommandInput placeholder="Search tools and games..." />
           <CommandList className="max-h-[400px]">
             <CommandEmpty>No results found.</CommandEmpty>
-            
+
             {categories.map((category) => (
               <CommandGroup key={category.name} heading={category.name}>
                 {category.items.map((tool) => (
@@ -162,7 +162,7 @@ export function FloatingNav({ className }: { className?: string }) {
                 ))}
               </CommandGroup>
             ))}
-            
+
             <CommandGroup heading="Games">
               {games.map((game) => (
                 <CommandItem
