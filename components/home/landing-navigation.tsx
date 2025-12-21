@@ -4,18 +4,17 @@ import { CommandMenu } from '@/components/command-menu'
 import { Logo } from '@/components/logo'
 import { ThemeToggle } from '@/components/theme-toggle'
 import Link from 'next/link'
-import { Github, Menu, X, Home, Compass, Gamepad2, Wrench, Heart } from 'lucide-react'
+import { Github, Menu, X, Home, Compass } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
-const navigationLinks = [
+// Mobile navigation - simplified list
+const mobileNavigationLinks = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/explore', label: 'Explore', icon: Compass },
-  { href: '/games', label: 'Games', icon: Gamepad2 },
-  { href: '/tools', label: 'Tools', icon: Wrench },
-  { href: '/contribute', label: 'Contribute', icon: Heart },
+  { href: '/contribute', label: 'Contribute', icon: Github },
 ]
 
 export function LandingNavigation() {
@@ -163,9 +162,9 @@ export function LandingNavigation() {
                   <CommandMenu />
                 </div>
 
-                {/* Navigation Links */}
+                {/* Navigation Links - Using mobile-specific list */}
                 <nav className="space-y-1" aria-label="Mobile navigation">
-                  {navigationLinks.map((link, index) => (
+                  {mobileNavigationLinks.map((link, index) => (
                     <motion.div
                       key={link.href}
                       initial={{ opacity: 0, x: -20 }}
@@ -192,32 +191,6 @@ export function LandingNavigation() {
                     </motion.div>
                   ))}
                 </nav>
-
-                {/* GitHub Link - Mobile */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navigationLinks.length * 0.05, duration: 0.2 }}
-                  className="pt-4 border-t border-border sm:hidden"
-                >
-                  <Link
-                    href="/contribute"
-                    className={cn(
-                      "flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium",
-                      "hover:bg-primary/10 hover:text-primary transition-all duration-200",
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                      "min-h-touch group"
-                    )}
-                    onClick={() => setIsMenuOpen(false)}
-                    role="menuitem"
-                  >
-                    <Github
-                      className="h-5 w-5 transition-transform duration-200 group-hover:scale-110"
-                      aria-hidden="true"
-                    />
-                    <span>GitHub</span>
-                  </Link>
-                </motion.div>
               </div>
             </motion.div>
           </>

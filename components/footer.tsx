@@ -31,11 +31,11 @@ export function Footer() {
   return (
     <footer className="relative z-10 bg-gradient-to-b from-transparent via-background/40 to-background w-full">
       <div className="container px-4 md:px-6 py-6 md:py-8 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-12">
+        <div className="flex flex-col md:flex-row justify-between gap-6 md:gap-12">
           {/* Left Section */}
-          <div className="space-y-2 max-w-md">
+          <div className="space-y-3 max-w-md">
             <div className="-ml-1">
-              <Logo className="text-4xl [&>span:last-child]:text-xl" />
+              <Logo className="text-3xl md:text-4xl [&>span:last-child]:text-base md:[&>span:last-child]:text-xl" />
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
               A collection of helpful utility tools for developers and creators,
@@ -43,7 +43,7 @@ export function Footer() {
               accessibility, and ease of use.
             </p>
 
-            <div className="pt-2 flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <span className="text-sm font-semibold text-foreground">Contributed by:</span>
               <div className="flex items-center -space-x-2">
                 {contributors.length > 0 ? (
@@ -52,9 +52,9 @@ export function Footer() {
                       key={contributor.id}
                       href={contributor.html_url}
                       target="_blank"
-                      className="transition-transform hover:scale-110 hover:z-10 translate-y-1"
+                      className="transition-transform hover:scale-110 hover:z-10 translate-y-0.5"
                     >
-                      <Avatar className="h-8 w-8 border-2 border-background">
+                      <Avatar className="h-7 w-7 md:h-8 md:w-8 border-2 border-background">
                         <AvatarImage src={contributor.avatar_url} alt={contributor.login} />
                         <AvatarFallback>{contributor.login.slice(0, 2).toUpperCase()}</AvatarFallback>
                       </Avatar>
@@ -64,9 +64,9 @@ export function Footer() {
                   <Link
                     href="https://github.com/puri-adityakumar"
                     target="_blank"
-                    className="transition-transform hover:scale-110 hover:z-10 translate-y-1"
+                    className="transition-transform hover:scale-110 hover:z-10 translate-y-0.5"
                   >
-                    <Avatar className="h-8 w-8 border-2 border-background">
+                    <Avatar className="h-7 w-7 md:h-8 md:w-8 border-2 border-background">
                       <AvatarImage src="https://github.com/puri-adityakumar.png" alt="@puri-adityakumar" />
                       <AvatarFallback>AK</AvatarFallback>
                     </Avatar>
@@ -76,10 +76,10 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Right Section */}
-          <div className="flex flex-col gap-2 items-end justify-end">
+          {/* Right Section - Left aligned on mobile, right aligned on desktop */}
+          <div className="flex flex-col gap-3 items-start md:items-end md:justify-end">
             {/* Social Icons */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-5">
               <Link
                 href="https://github.com/puri-adityakumar/astraa"
                 target="_blank"
@@ -110,7 +110,7 @@ export function Footer() {
             </div>
 
             {/* Text Links */}
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-4 md:gap-6 text-sm text-muted-foreground">
               <Link
                 href="/changelog"
                 className="hover:text-foreground transition-colors"
@@ -128,8 +128,8 @@ export function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-4 pt-4 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-6 pt-4 border-t border-white/5 flex justify-center md:justify-start">
+          <p className="text-xs md:text-sm text-muted-foreground">
             &copy; {new Date().getFullYear()} Astraa. All rights reserved.
           </p>
         </div>
