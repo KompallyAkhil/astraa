@@ -15,7 +15,7 @@ export async function generateText(topic: string, wordCount: number) {
 
     try {
         const completion = await openRouter.chat.send({
-            model: 'openai/gpt-4o-mini',
+            model: 'meta-llama/llama-3.3-70b-instruct:free',
             messages: [
                 {
                     role: 'system',
