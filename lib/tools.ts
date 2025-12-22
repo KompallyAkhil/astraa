@@ -32,10 +32,9 @@ export const toolCategories: ToolCategory[] = [
       },
       {
         name: 'Text Generator',
-        description: 'AI-powered text snippet generator',
+        description: 'Smart, context-aware Lorem Ipsum alternative',
         path: '/tools/text',
-        icon: Type,
-        comingSoon: true
+        icon: Type
       },
       {
         name: 'Currency Converter',
