@@ -17,13 +17,29 @@ interface CryptoSelectProps {
 export function CryptoSelect({ value, onValueChange }: CryptoSelectProps) {
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="w-full">
+      <SelectTrigger className="w-full h-11">
         <SelectValue placeholder="Select cryptocurrency" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="max-h-[300px]">
         {cryptocurrencies.map((crypto) => (
           <SelectItem key={crypto.id} value={crypto.id}>
-            {crypto.symbol} - {crypto.name}
+            <div className="flex items-center gap-3">
+              <img
+                src={`https://assets.coincap.io/assets/icons/${crypto.symbol.toLowerCase()}@2x.png`}
+                width={20}
+                height={20}
+                alt={`${crypto.name} icon`}
+                className="rounded-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = "https://cdn-icons-png.flaticon.com/512/1213/1213032.png" // Fallback generic coin
+                  e.currentTarget.onerror = null
+                }}
+              />
+              <span className="font-medium">{crypto.symbol}</span>
+              <span className="text-muted-foreground text-xs hidden sm:inline-block">
+                - {crypto.name}
+              </span>
+            </div>
           </SelectItem>
         ))}
       </SelectContent>
