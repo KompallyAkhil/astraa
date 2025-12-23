@@ -3,6 +3,8 @@
 
 import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { ChevronDown, ChevronUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { unitCategories, convertUnit, type Unit } from "@/lib/unit-conversions"
 import { UnitConverterForm } from "@/components/units/unit-converter-form"
@@ -13,6 +15,7 @@ export function UnitConverterClient() {
   const [fromUnit, setFromUnit] = useState<Unit>(unitCategories[0]?.units[0] ?? {} as Unit)
   const [toUnit, setToUnit] = useState<Unit>(unitCategories[0]?.units[1] ?? {} as Unit)
   const [result, setResult] = useState<string>("")
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     if (!value || isNaN(Number(value))) {
@@ -60,14 +63,35 @@ export function UnitConverterClient() {
       <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-8">
         {/* Sidebar Navigation */}
         <div className="space-y-1">
-          <h2 className="mb-3 px-2 text-sm font-semibold text-muted-foreground tracking-wider uppercase">
-            Categories
-          </h2>
-          <nav className="space-y-1">
+          <div className="flex items-center justify-between md:block px-2 md:px-0 mb-3 ml-2 lg:ml-0">
+            <h2 className="text-sm font-semibold text-muted-foreground tracking-wider uppercase">
+              Categories
+            </h2>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="md:hidden h-8 w-8 p-0"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
+
+          <nav className={cn(
+            "space-y-1",
+            isMobileMenuOpen ? "block" : "hidden md:block" // Toggle on mobile, always visible on desktop
+          )}>
             {unitCategories.map((cat) => (
               <button
                 key={cat.name}
-                onClick={() => handleCategoryChange(cat.name)}
+                onClick={() => {
+                  handleCategoryChange(cat.name)
+                  setIsMobileMenuOpen(false) // Close menu on selection (mobile)
+                }}
                 className={cn(
                   "w-full flex items-center px-4 py-2.5 text-sm font-medium rounded-md transition-all duration-200 text-left",
                   category === cat.name
