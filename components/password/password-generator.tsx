@@ -43,11 +43,11 @@ export function PasswordGeneratorClient() {
   const generate = useCallback(() => {
     let result
     if (mode === "random") {
-      result = generatePassword(length[0], options)
+      result = generatePassword(length[0] ?? 20, options)
     } else if (mode === "memorable") {
-      result = generateMemorablePassword(wordCount[0], memOptions.capitalize, memOptions.fullWords)
+      result = generateMemorablePassword(wordCount[0] ?? 5, memOptions.capitalize)
     } else {
-      result = generatePin(pinLength[0])
+      result = generatePin(pinLength[0] ?? 4)
     }
 
     if (result.success) {

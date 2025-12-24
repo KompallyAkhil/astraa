@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ArrowDownUp } from "lucide-react"
-import { useToast } from "@/components/ui/use-toast"
 import { CurrencySelect } from "./currency-select"
 import { CryptoSelect } from "./crypto-select"
 import type { CurrencyCode } from "@/lib/currency-data"
@@ -24,7 +23,6 @@ export function CryptoConverter({
   onResult,
   result
 }: CryptoConverterProps) {
-  const { toast } = useToast()
   const [cryptoCurrency, setCryptoCurrency] = useState<CryptoId>("bitcoin")
   const [fiatCurrency, setFiatCurrency] = useState<CurrencyCode>("USD")
   const [isLoading, setIsLoading] = useState(false)

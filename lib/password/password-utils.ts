@@ -57,14 +57,14 @@ export function generatePassword(length: number, options: PasswordOptions): Pass
   }
 }
 
-export function generateMemorablePassword(count: number, capitalize: boolean, fullWords: boolean): PasswordResult {
+export function generateMemorablePassword(count: number, capitalize: boolean): PasswordResult {
   if (count < 2) count = 2
   if (count > 10) count = 10
 
   const selectedWords: string[] = []
 
   for (let i = 0; i < count; i++) {
-    let word = words[Math.floor(Math.random() * words.length)]
+    let word = words[Math.floor(Math.random() * words.length)] ?? ""
     if (capitalize) {
       word = word.charAt(0).toUpperCase() + word.slice(1)
     }

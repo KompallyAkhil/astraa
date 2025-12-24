@@ -1,7 +1,7 @@
 "use client"
 
 import { Slider } from "@/components/ui/slider"
-import { Switch } from "@/components/ui/switch"
+
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 
