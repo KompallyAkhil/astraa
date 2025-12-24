@@ -1,42 +1,29 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Copy } from "lucide-react"
-import { useToast } from "@/components/ui/use-toast"
+import { cn } from "@/lib/utils"
 
 interface PasswordDisplayProps {
   password: string
 }
 
 export function PasswordDisplay({ password }: PasswordDisplayProps) {
-  const { toast } = useToast()
-
-  const copyToClipboard = async () => {
-    if (!password) return
-    await navigator.clipboard.writeText(password)
-    toast({
-      title: "Copied!",
-      description: "Password copied to clipboard",
-    })
-  }
-
   return (
-    <div className="flex items-center gap-2">
-      <Input
-        value={password}
-        readOnly
-        placeholder="Generated password will appear here"
-        className="font-mono"
-      />
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={copyToClipboard}
-        disabled={!password}
-      >
-        <Copy className="h-4 w-4" />
-      </Button>
+    <div className="w-full">
+      <div className={cn(
+        "relative flex items-center justify-center min-h-[120px] p-6 rounded-lg transition-all duration-200",
+        "bg-background border-2 border-border/60",
+        "hover:border-primary/20 hover:shadow-sm"
+      )}>
+        {password ? (
+          <div className="text-3xl sm:text-4xl font-mono font-medium tracking-wide text-center break-all text-foreground animate-in fade-in zoom-in-50 duration-200">
+            {password}
+          </div>
+        ) : (
+          <div className="text-lg text-muted-foreground/40 font-medium">
+            Generate a password
+          </div>
+        )}
+      </div>
     </div>
   )
 }

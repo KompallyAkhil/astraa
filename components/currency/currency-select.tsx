@@ -18,13 +18,26 @@ interface CurrencySelectProps {
 export function CurrencySelect({ value, onValueChange, label }: CurrencySelectProps) {
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="w-full">
+      <SelectTrigger className="w-full h-11">
         <SelectValue placeholder={`Select ${label}`} />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="max-h-[300px]">
         {currencies.map((currency) => (
           <SelectItem key={currency.code} value={currency.code}>
-            {currency.code} - {currency.name}
+            <div className="flex items-center gap-3">
+              <img
+                src={`https://flagcdn.com/w40/${currency.countryCode}.png`}
+                srcSet={`https://flagcdn.com/w80/${currency.countryCode}.png 2x`}
+                width={20}
+                height={15}
+                alt={`${currency.name} flag`}
+                className="rounded-sm object-cover shadow-sm"
+              />
+              <span className="font-medium">{currency.code}</span>
+              <span className="text-muted-foreground text-xs hidden sm:inline-block">
+                - {currency.name}
+              </span>
+            </div>
           </SelectItem>
         ))}
       </SelectContent>
