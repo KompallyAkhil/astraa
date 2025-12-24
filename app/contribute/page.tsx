@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Github, Bug, Star, FileText, BookOpen, MessageCircle } from "lucide-react"
-import { BsTwitterX, BsTelegram } from "react-icons/bs"
+import { Github, Bug } from "lucide-react"
+
 import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
@@ -134,43 +134,61 @@ export default function ContributePage() {
           Getting Started
         </h2>
 
-        <div className="max-w-2xl mx-auto space-y-4">
-          <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors">
-            <Star className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+        <div className="max-w-2xl mx-auto space-y-6">
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm">
+              1
+            </div>
             <div>
               <p className="font-medium">Star the repository</p>
               <p className="text-sm text-muted-foreground">Show your support and help us reach more developers.</p>
             </div>
           </div>
 
-          <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors">
-            <FileText className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm">
+              2
+            </div>
             <div>
               <p className="font-medium">Read CONTRIBUTING.md & Code of Conduct</p>
-              <p className="text-sm text-muted-foreground">Understand our guidelines before making contributions.</p>
+              <p className="text-sm text-muted-foreground">
+                Understand our{" "}
+                <Link href="https://github.com/puri-adityakumar/astraa/blob/main/CONTRIBUTING.md" target="_blank" className="text-foreground hover:underline">
+                  contribution guidelines
+                </Link>
+                {" "}and{" "}
+                <Link href="https://github.com/puri-adityakumar/astraa/blob/main/CODE_OF_CONDUCT.md" target="_blank" className="text-foreground hover:underline">
+                  code of conduct
+                </Link>
+                {" "}before contributing.
+              </p>
             </div>
           </div>
 
-          <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors">
-            <BookOpen className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm">
+              3
+            </div>
             <div>
               <p className="font-medium">Check the Issues tab or raise a new issue</p>
               <p className="text-sm text-muted-foreground">Find tasks to work on or report bugs and feature requests.</p>
             </div>
           </div>
 
-          <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/30 transition-colors">
-            <MessageCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm">
+              4
+            </div>
             <div>
               <p className="font-medium">Reach out to us</p>
               <p className="text-sm text-muted-foreground">
                 Connect with us on{" "}
-                <Link href="https://x.com/astraadottech" target="_blank" className="inline-flex items-center gap-1 text-foreground hover:underline">
-                  <BsTwitterX className="h-3 w-3" /> X
+                <Link href="https://x.com/astraadottech" target="_blank" className="text-foreground hover:underline">
+                  X (formerly Twitter)
                 </Link>
                 {" "}or{" "}
-                <Link href="https://t.me/astraadottech" target="_blank" className="inline-flex items-center gap-1 text-foreground hover:underline">
-                  <BsTelegram className="h-3.5 w-3.5" /> Telegram
+                <Link href="https://t.me/astraadottech" target="_blank" className="text-foreground hover:underline">
+                  Telegram
                 </Link>
                 .
               </p>
