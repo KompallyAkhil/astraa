@@ -18,12 +18,18 @@ interface Contributor {
 export default function ContributePage() {
   const [contributors, setContributors] = useState<Contributor[]>([])
 
+  // Exclude founder and bots from contributors
+  const EXCLUDED_USERS = ['puri-adityakumar', 'vercel[bot]', 'dependabot[bot]', 'github-actions[bot]']
+
   useEffect(() => {
     fetch('https://api.github.com/repos/puri-adityakumar/astraa/contributors')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
-          setContributors(data)
+          const filtered = data.filter(
+            (contributor: Contributor) => !EXCLUDED_USERS.includes(contributor.login)
+          )
+          setContributors(filtered)
         }
       })
       .catch(err => console.error('Failed to fetch contributors:', err))
