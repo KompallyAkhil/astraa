@@ -18,12 +18,18 @@ interface Contributor {
 export default function ContributePage() {
   const [contributors, setContributors] = useState<Contributor[]>([])
 
+  // Exclude founder and bots from contributors
+  const EXCLUDED_USERS = ['puri-adityakumar', 'vercel[bot]', 'dependabot[bot]', 'github-actions[bot]']
+
   useEffect(() => {
     fetch('https://api.github.com/repos/puri-adityakumar/astraa/contributors')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
-          setContributors(data)
+          const filtered = data.filter(
+            (contributor: Contributor) => !EXCLUDED_USERS.includes(contributor.login)
+          )
+          setContributors(filtered)
         }
       })
       .catch(err => console.error('Failed to fetch contributors:', err))
@@ -193,6 +199,27 @@ export default function ContributePage() {
                 .
               </p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Support Section */}
+      <div className="text-center space-y-6">
+        <p className="text-muted-foreground font-medium">Help support development and server costs ❤️</p>
+
+        <div className="max-w-md mx-auto p-4 rounded-xl border bg-card/50 backdrop-blur-sm shadow-sm flex items-center gap-4 text-left hover:bg-card/80 transition-colors">
+          <div className="flex-1 min-w-0">
+            <p className="font-medium truncate">Sponsor <span className="font-logo">astraa</span></p>
+            <p className="text-xs text-muted-foreground truncate">Support open source work</p>
+          </div>
+          <div className="shrink-0">
+            <iframe
+              src="https://github.com/sponsors/puri-adityakumar/button"
+              title="Sponsor astraa"
+              height="32"
+              width="114"
+              style={{ border: 0, borderRadius: "6px" }}
+            />
           </div>
         </div>
       </div>
