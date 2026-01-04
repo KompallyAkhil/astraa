@@ -61,6 +61,7 @@ chore: update dependencies
 
 ### Must Have
 
+- **Target branch** - All PRs must be made to the `development` branch
 - **Linked issue** - Reference the issue in your PR (e.g., "Closes #123")
 - **Valid title** - Use Conventional Commits format (see above)
 - **Passing checks** - All CI checks must pass
