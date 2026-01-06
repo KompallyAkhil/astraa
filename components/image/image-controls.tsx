@@ -67,7 +67,7 @@ export function ImageControls({
             />
           </div>
 
-{/* Lock Button */}
+          {/* Lock Button */}
           <div className="shrink-0 flex items-center">
             <Button
               variant="outline"
@@ -99,7 +99,7 @@ export function ImageControls({
             />
           </div>
 
-{/* Unit Display (Static px for now) */}
+          {/* Unit Display (Static px for now) */}
           <div className="shrink-0 flex items-center">
             <div className="h-10 px-3 flex items-center justify-center bg-muted/50 border rounded-md text-sm text-muted-foreground">
               px
