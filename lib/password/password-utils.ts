@@ -22,6 +22,7 @@ function getSecureRandomInt(max: number): number {
     if (max <= 0) throw new Error("Max must be positive");
     if (max === 1) return 0;
     
+    const array = new Uint32Array(1);
     let randomValue;
     const limit = Math.floor(0x100000000 / max) * max;
 
