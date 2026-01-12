@@ -9,7 +9,7 @@ import { CryptoSelect } from "./crypto-select"
 import type { CurrencyCode } from "@/lib/currency-data"
 import type { CryptoId } from "@/lib/crypto-data"
 import { getCryptoPrice } from "@/lib/api"
-
+import { useToast } from "@/components/ui/use-toast"
 interface CryptoConverterProps {
   amount: string
   onAmountChange: (value: string) => void
@@ -23,6 +23,7 @@ export function CryptoConverter({
   onResult,
   result
 }: CryptoConverterProps) {
+  const { toast } = useToast()
   const [cryptoCurrency, setCryptoCurrency] = useState<CryptoId>("bitcoin")
   const [fiatCurrency, setFiatCurrency] = useState<CurrencyCode>("USD")
   const [isLoading, setIsLoading] = useState(false)
