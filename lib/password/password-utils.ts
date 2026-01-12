@@ -23,17 +23,13 @@ function getSecureRandomInt(max: number): number {
     if (max === 1) return 0;
     
     const array = new Uint32Array(1);
-    let randomValue;
+    let randomValue: number;
     const limit = Math.floor(0x100000000 / max) * max;
 
     do {
         crypto.getRandomValues(array);
-        randomValue = array[0];
-    } while (randomValue !== undefined && randomValue >= limit);
-
-    if (randomValue === undefined) {
-        throw new Error("Failed to generate random value");
-    }
+        randomValue = array[0]!;
+    } while (randomValue >= limit);
 
     return randomValue % max;
 }
