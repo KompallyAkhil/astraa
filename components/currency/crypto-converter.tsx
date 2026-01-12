@@ -39,7 +39,12 @@ export function CryptoConverter({
         const price = await getCryptoPrice(cryptoCurrency, fiatCurrency)
         
         if (price === null) {
-          onResult("Error fetching price")
+          onResult("Error fetching price");
+          toast({
+            title: "Error",
+            description: "Failed to fetch exchange rates. Please try again.",
+            variant: "destructive",
+          })
           return
         }
 
